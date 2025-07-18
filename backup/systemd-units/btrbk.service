@@ -1,0 +1,9 @@
+[Unit]
+Description=Starts btrbk backup with the appropriate mount.
+Requires=mnt-btrfsroot.mount
+After=mnt-btrfsroot.mount
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/btrbk run
+ExecStop=/usr/bin/umount /mnt/btrfsroot
