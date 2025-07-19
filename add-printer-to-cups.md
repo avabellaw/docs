@@ -20,6 +20,7 @@ add your user to lpadmin group
 sudo usermod -a -G lpadmin [username]
 
 ssh onto remote server and run the following command to allow remote connection:
+
 cupsctl --remote-admin --remote-any --share-printers
 
 ## Admin
@@ -35,3 +36,6 @@ for my hp printer:
 3. url is ipp://[ipaddress]/ipp/print
 
 
+## Troubleshoot
+
+* Sometimes just restart the printer.
