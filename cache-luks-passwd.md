@@ -1,4 +1,4 @@
-# Unlock using cached luks passwd
+# Unlock luks using cached passwd
 
 ## Cache the password after entering in LUKS
 
