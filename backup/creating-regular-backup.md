@@ -1,6 +1,7 @@
 ---
 title: Regularly scheduled btrbk backup
 parent: Backup with btrbk
+has_children: true
 ---
 
 # Create regular backup to seperate drive using btrbk
