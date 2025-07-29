@@ -1,8 +1,2 @@
+title: Personal documentation
 theme: jekyll-theme-minimal
-plugins:
-  - jekyll-relative-links
-relative_links:
-  enabled: true
-  collections: true
-include:
-  - Add-printer-to-cups.md
