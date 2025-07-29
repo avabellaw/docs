@@ -1,3 +1,7 @@
+---
+parent: OneDrive
+---
+
 # Live access to onedrive cloud
 
 1. Install rclone
