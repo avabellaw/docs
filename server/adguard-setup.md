@@ -1,3 +1,7 @@
+---
+parent: Server
+---
+
 # Setup AdGuardHome
 
 To not conflict with hotspot, bind to lan ip
