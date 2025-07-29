@@ -1,3 +1,7 @@
+---
+parent: Linux system
+---
+
 # Unlock luks using cached passwd
 
 ## Cache the password after entering in LUKS

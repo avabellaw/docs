@@ -1,3 +1,7 @@
+---
+parent: Linux system
+---
+
 # Add printer to CUPS
 
 ## Install cups
