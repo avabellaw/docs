@@ -1,5 +1,5 @@
 [Unit]
-Description=Mount the btrfs root that contains the subvolumes to /mnt/btrfs-root
+Description=Mount the btrfs root that contains the subvolumes to /mnt/btrfsroot
 Before=btrfs.service
 
 [Mount]

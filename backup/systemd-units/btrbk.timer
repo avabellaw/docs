@@ -4,6 +4,8 @@ Description=Backup hourly
 [Timer]
 OnCalendar=hourly
 Persistent=true
+RandomizedDelaySec=60
 
 [Install]
 WantedBy=timers.target
+
