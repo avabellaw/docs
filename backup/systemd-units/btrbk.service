@@ -5,5 +5,6 @@ After=mnt-btrfsroot.mount
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/btrbk run
+ExecStartPre=/bin/sleep 30
+ExecStart=/bin/bash /home/ava/run-btrbk.sh
 ExecStop=/usr/bin/umount /mnt/btrfsroot
