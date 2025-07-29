@@ -1,10 +1,10 @@
 [Unit]
-Description=Starts btrbk backup with the appropriate mount.
+Description=Run btrbk backup w/ btrfs root mount.
 Requires=mnt-btrfsroot.mount
 After=mnt-btrfsroot.mount
 
 [Service]
 Type=oneshot
 #ExecStartPre=/bin/sleep 30
-ExecStart=/bin/bash /home/ava/run-btrbk.sh
+ExecStart=/bin/bash /home/ava/Scripts/run-btrbk.sh
 ExecStop=/usr/bin/umount /mnt/btrfsroot
