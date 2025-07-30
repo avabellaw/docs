@@ -8,6 +8,21 @@ Incompatible with my laptop
 
 Stop and disable the service for kernel to handle.
 
+### Improve battery life with alternative power manager
+
+```sudo apt install tlp tlp-rdw```
+```sudo systemctl enable tlp.service```
+
+#### Add stop/start charge threshold
+
+in ```/etc/tlp.conf```:
+
+```
+START_CHARGE_THRESH_BAT0=80
+STOP_CHARGE_THRESH_BAT0=90
+```
+
+
 ## Kernelstub option "quiet" causes reboot after poweroff
 
 For some reason, the kernelstub option reboots the laptop as soon as you shut it down. (Unless using systemctl to poweroff).
