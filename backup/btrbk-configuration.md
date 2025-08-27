@@ -10,11 +10,18 @@ The default btrbk config file location is:
 Create or edit this file and add the following:
 
 timestamp_format long
-snapshot_preserve_min 1d 
+
+# Backup drive retention policy
+target_preserve_min    3d
+target_preserve        7d 4w 6m 1y
+
+# Main drive snapshot retention policy
+snapshot_preserve_min 28d
 snapshot_preserve 7d 4w 6m 1y
 
 volume /mnt/btrfsroot
-    snapshot_dir .btrbk-snapshots 
+    snapshot_dir .btrbk-snapshots
     target send-receive /media/ava/data-backup/root
     subvolume @
     subvolume @home
+
