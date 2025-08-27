@@ -43,3 +43,9 @@ iface lan0 inet static
         post-up ip route add 192.168.1.0/24 via 10.10.10.1 dev eth0
         post-down ip route del 192.168.1.0/24 via 10.10.10.1 dev eth0
 ```
+
+## Netoworking ubunutu 24.04
+
+stored here:
+
+```/etc/systemd/network/```
