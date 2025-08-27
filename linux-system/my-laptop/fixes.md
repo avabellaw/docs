@@ -22,9 +22,20 @@ START_CHARGE_THRESH_BAT0=80
 STOP_CHARGE_THRESH_BAT0=90
 ```
 
+## Reboot after poweroff/hibernate
 
-## Kernelstub option "quiet" causes reboot after poweroff
+### Kernelstub option "quiet" causes reboot after poweroff
 
 For some reason, the kernelstub option reboots the laptop as soon as you shut it down. (Unless using systemctl to poweroff).
 
 Remove it using kernelstub -d "quiet".
+
+### Disable USB wake - Didn't work
+
+ava@ava-pop:~$ cat /proc/acpi/wakeup | grep -i xhc
+XHCI	  S3	*enabled  pci:0000:00:14.0
+
+**Disable USB boot with the following**
+echo "XHCI" | sudo tee /proc/acpi/wakeup
+
+### 
