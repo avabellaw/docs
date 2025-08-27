@@ -49,3 +49,9 @@ iface lan0 inet static
 stored here:
 
 ```/etc/systemd/network/```
+
+### Route to lan 
+
+[Route]
+Gateway = 10.10.10.1
+Destination = 192.168.1.0/24
