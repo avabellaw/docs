@@ -1,5 +1,14 @@
 # Config for caddyfile nat
 
+Create an environment variable in the systemd file for caddy
+
+```systemclt edit caddy```
+
+``` systemd
+[Service]
+Enviro**n**ment=CF_API_TOKEN=xxxxxxxxxxxxxxxxxx
+```
+
 ```
 # The Caddyfile is an easy way to configure your Caddy web server.
 #
