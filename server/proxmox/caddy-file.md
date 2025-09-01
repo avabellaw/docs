@@ -1,5 +1,21 @@
 # Config for caddyfile nat
 
+## Setup
+
+### Cloudflare install using xcaddy
+
+Make sure Cloudflare is installed with caddy or use xcaddy as follows:
+
+1. xcaddy build --with github.com/caddy-dns/cloudflare
+
+2. Replace the old caddy file
+   1. systemctl stop caddy
+   2. mv caddy /usr/bin/caddy
+   3. chmod +x /usr/bin/caddy
+   4. systemctl start caddy
+
+### Cloudflare token env
+
 Create an environment variable in the systemd file for caddy
 
 ```systemclt edit caddy```
@@ -42,7 +58,7 @@ adguard.avabella.uk {
         reverse_proxy 10.0.0.100:80
 }
 
-jellyfin.avabella.uk {
+jellyfin.avabella.uk, js.avabella.uk {
         tls {
                 dns cloudflare {env.CF_API_TOKEN}
         }
