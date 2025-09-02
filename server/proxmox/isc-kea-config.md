@@ -25,15 +25,14 @@
     "option-data": [
       {
         "name": "domain-name-servers",
-        "data": "192.168.40.42, 192.168.40.82"
+        "data": "192.168.1.25, 192.168.1.221, 1.1.1.1"
       }
     ],
     "hooks-libraries": [
+      { "library": "/usr/lib/x86_64-linux-gnu/kea/hooks/libdhcp_host_cmds.so" },
       { "library": "/usr/lib/x86_64-linux-gnu/kea/hooks/libdhcp_stat_cmds.so" },
+      { "library": "/usr/lib/x86_64-linux-gnu/kea/hooks/libdhcp_lease_cmds.so" },
       { "library": "/usr/lib/x86_64-linux-gnu/kea/hooks/libdhcp_subnet_cmds.so" },
-      {
-        "library": "/usr/lib/x86_64-linux-gnu/kea/hooks/libdhcp_lease_cmds.so"
-      },
       {
         "library": "/usr/lib/x86_64-linux-gnu/kea/hooks/libdhcp_ha.so",
         "parameters": {
@@ -41,15 +40,18 @@
             {
               "this-server-name": "isc-kea",
               "mode": "hot-standby",
+              "max-unacked-clients": 0,
+              "heartbeat-delay": 7000,
+              "max-response-delay": 40000,
               "peers": [
                 {
                   "name": "isc-kea",
-                  "url": "http://192.0.0.1:8000/",
+                  "url": "http://192.168.1.1:8000/",
                   "role": "primary"
                 },
                 {
                   "name": "isc-kea-standby",
-                  "url": "http://192.0.0.2:8000/",
+                  "url": "http://192.168.1.221:8000/",
                   "role": "standby"
                 }
               ]
@@ -60,57 +62,52 @@
     ],
     "subnet4": [
       {
-        "subnet": "192.0.0.0/24",
+        "subnet": "192.168.1.0/24",
         "id": 1,
         "option-data": [
           {
             "name": "routers",
-            "data": "192.0.0.254"
+            "data": "192.168.1.254"
           }
         ],
         "pools": [
           {
-            "pool": "192.0.0.3-192.0.0.253"
+            "pool": "192.168.1.3-192.168.1.220"
           }
         ]
       }
     ],
-  },
-  "Control-agent": {
-    "http-host": "127.0.0.1",
-    "http-port": 8000
-  },
-  "loggers": [
-        {
+     "loggers": [
+      {
         "name": "kea-dhcp4",
         "severity": "INFO",
         "output_options": [
           {
-            "output": "stdout"
+            "output": "/var/log/kea/dhcp4.log",
+            "maxver": 10
           }
         ]
       },
       {
-        "name": "lease-cmds-hooks",
+        "name": "kea-dhcp4.dhcpsrv",
         "severity": "INFO",
         "output_options": [
-          { "output": "/var/log/kea/lease_cmds.log", "maxver": 5 }
+          {
+            "output": "/var/log/kea/dhcp4-dhcpsrv.log",
+            "maxver": 10
+          }
         ]
       },
       {
-        "name": "stat-cmds-hooks",
+        "name": "kea-dhcp4.leases",
         "severity": "INFO",
         "output_options": [
-          { "output": "/var/log/kea/stat_cmds.log", "maxver": 5 }
-        ]
-      },
-      {
-        "name": "high-availability-hooks",
-        "severity": "INFO",
-        "output_options": [
-          { "output": "/var/log/kea/high-availability.log", "maxver": 5 }
+          {
+            "output": "/var/log/kea/dhcp4-leases.log",
+            "maxver": 10
+          }
         ]
       }
-    ],
-
+    ]
+  }
 }
