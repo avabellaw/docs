@@ -30,11 +30,13 @@ curl -u [USERNAME]:[PASSWORD] -X POST -H "Content-Type: application/json"      -
         "authentication": {
             "type": "basic",
             "realm": "kea-control-agent",
-            "clients": [
+            "directory": "/etc/kea",
+        "clients": [
             {
-                "user": "admin",
-                "password": ""
-            } ]
+                "user": "kea-api",
+                "password-file": "kea-api-password"
+            }
+        ]
         },
 
         "control-sockets": {
@@ -44,15 +46,6 @@ curl -u [USERNAME]:[PASSWORD] -X POST -H "Content-Type: application/json"      -
                 "socket-name": "/var/run/kea/kea-dhcp4-socket"
             }
         },
-
-//        "hooks-libraries": [
-//        {
-//            "library": "/usr/lib/x86_64-linux-gnu/kea/hooks/libdhcp_stat_cmds.so"
-//
-//        },
-//        {
-//            "library": "/usr/lib/x86_64-linux-gnu/kea/hooks/libdhcp_subnet_cmds.so"
-//        } ],
 
         "loggers": [ {
             "name": "kea-ctrl-agent",
