@@ -46,12 +46,12 @@
               "peers": [
                 {
                   "name": "isc-kea",
-                  "url": "http://192.168.1.1:8000/",
+                  "url": "http://192.168.1.1:8001/",
                   "role": "primary"
                 },
                 {
                   "name": "isc-kea-standby",
-                  "url": "http://192.168.1.221:8000/",
+                  "url": "http://192.168.1.221:8001/",
                   "role": "standby"
                 }
               ]
