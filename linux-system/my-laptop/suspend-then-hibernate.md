@@ -4,8 +4,6 @@ parent: My Laptop
 
 # Suspend then hibernate after x minutes
 
-Set the duration (seconds) spent in suspend-to-ram before hibernating.
-
 ```sudo nano /etc/systemd/sleep.conf```
 
 Defaults are commented out. Uncomment and set HibernateDelaySec.
