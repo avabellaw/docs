@@ -41,10 +41,16 @@ curl -u [USERNAME]:[PASSWORD] -X POST -H "Content-Type: application/json"      -
 
         "control-sockets": {
             "dhcp4": {
-                "comment": "main server",
+                "comment": "dhcp4 main server",
                 "socket-type": "unix",
                 "socket-name": "/var/run/kea/kea-dhcp4-socket"
+            },
+            "dhcp6": {
+                "comment": "dhcp6 main server",
+                "socket-type": "unix",
+                "socket-name": "/var/run/kea/kea-dhcp6-socket"
             }
+
         },
 
         "loggers": [ {
