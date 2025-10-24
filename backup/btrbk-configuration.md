@@ -18,6 +18,7 @@ timestamp_format long
 snapshot_preserve_min 2d
 snapshot_preserve 6d 3w 6m 1y
 snapshot_dir .btrbk-snapshots
+snapshot_create onchange
 
 # Backup drive retention policy
 target_preserve_min    1d
@@ -25,7 +26,7 @@ target_preserve        6d 3w 6m 1y
 
 volume /mnt/btrfsroot
 	# root
-	subvolume @
+    subvolume @
         snapshot_preserve	6d 1w 1m 0y
 		target_preserve		7d 0w 0m 0y
 		target_preserve_min	2d
