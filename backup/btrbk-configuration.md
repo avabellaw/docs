@@ -24,18 +24,23 @@ target_preserve_min    1d
 target_preserve        6d 3w 6m 1y
 
 volume /mnt/btrfsroot
-    # root
-    subvolume @
-    	snapshot_preserve	6d 1w 1m 0y
-	    target_preserve		7d 0w 0m 0y
-	    target_preserve_min	2d
-	    target send-receive /media/ava/data-backup/snapshots/root
+	# root
+	subvolume @
+        snapshot_preserve	6d 1w 1m 0y
+		target_preserve		7d 0w 0m 0y
+		target_preserve_min	2d
+		target send-receive /media/ava/data-backup/snapshots/root
 
     # home
-    subvolume @home
-	    target send-receive /media/ava/data-backup/snapshots/home
+	subvolume @home
+		target send-receive /media/ava/data-backup/snapshots/home
 
-    # steam
-    subvolume @steam
+	# data
+	subvolume @data
+		target send-receive /media/ava/data-backup/snapshots/home-data
+
+	# steam
+	subvolume @steam
+
 ```
 
