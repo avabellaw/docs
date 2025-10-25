@@ -14,6 +14,16 @@
       "persist": true,
       "name": "/var/lib/kea/kea-dhcp4-leases.csv"
     },
+    "hosts-databases": [
+      {
+        "host": "localhost",
+        "name": "",
+        "password": "",
+        "port": 5432,
+        "type": "postgresql",
+        "user": ""
+      }
+    ],
     "multi-threading": {
       "enable-multi-threading": true,
       "thread-pool-size": 4,
@@ -29,6 +39,9 @@
       }
     ],
     "hooks-libraries": [
+      {
+        "library": "/usr/lib/x86_64-linux-gnu/kea/hooks/libdhcp_pgsql.so"
+      },
       { "library": "/usr/lib/x86_64-linux-gnu/kea/hooks/libdhcp_host_cmds.so" },
       { "library": "/usr/lib/x86_64-linux-gnu/kea/hooks/libdhcp_stat_cmds.so" },
       { "library": "/usr/lib/x86_64-linux-gnu/kea/hooks/libdhcp_lease_cmds.so" },
