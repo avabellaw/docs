@@ -2,6 +2,10 @@
 parent: OneDrive
 ---
 
+# rclone bug
+
+Older versions such as v1.60.1 will only use readonly permissions. Debian like proxmox may only have the older version in apt.
+
 # Live access to onedrive cloud
 
 1. Install rclone
