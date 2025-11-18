@@ -1,3 +1,9 @@
+# notes
+* Works without a db as I am using this only to supply dns.
+
+## TODO
+* Add HA.
+
 {
   "Dhcp6": {
     "control-socket": {
