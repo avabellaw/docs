@@ -10,9 +10,12 @@
       ]
     },
     "lease-database": {
-      "type": "memfile",
-      "persist": true,
-      "name": "/var/lib/kea/kea-dhcp4-leases.csv"
+       "host": "localhost",
+       "name": "",
+       "password": "",
+       "port": 5432,
+       "type": "postgresql",
+       "user": ""
     },
     "hosts-databases": [
       {
@@ -32,6 +35,7 @@
     "cache-threshold": 0.25,
     "calculate-tee-times": true,
     "valid-lifetime": 28800,
+    "host-reservation-identifiers": [ "hw-address", "client-id" ],
     "option-data": [
       {
         "name": "domain-name-servers",
@@ -54,15 +58,24 @@
               "this-server-name": "isc-kea",
               "mode": "hot-standby",
               "max-unacked-clients": 0,
+              "max-ack-delay": 10000,
               "heartbeat-delay": 7000,
               "max-response-delay": 40000,
+              "multi-threading": {
+                "enable-multi-threading": true,
+                "http-client-threads": 0,
+                "http-dedicated-listener": true,
+                "http-listener-threads": 0
+              },
               "peers": [
                 {
+                  "auto-failover": true,
                   "name": "isc-kea",
                   "url": "http://192.168.1.1:8001/",
                   "role": "primary"
                 },
                 {
+                  "auto-failover": true,
                   "name": "isc-kea-standby",
                   "url": "http://192.168.1.221:8001/",
                   "role": "standby"
@@ -90,34 +103,41 @@
         ]
       }
     ],
-     "loggers": [
+    "loggers": [
       {
         "name": "kea-dhcp4",
         "severity": "INFO",
-        "output_options": [
+        "output-options": [
           {
+            "flush": true,
+            "maxsize": 10240000,
+            "maxver": 10,
             "output": "/var/log/kea/dhcp4.log",
-            "maxver": 10
           }
         ]
       },
       {
         "name": "kea-dhcp4.dhcpsrv",
         "severity": "INFO",
-        "output_options": [
+        "output-options": [
           {
+            "flush": true,
+            "maxsize": 10240000,
+            "maxver": 10,
             "output": "/var/log/kea/dhcp4-dhcpsrv.log",
-            "maxver": 10
           }
         ]
       },
       {
+        "debuglevel": 0,
         "name": "kea-dhcp4.leases",
         "severity": "INFO",
-        "output_options": [
+        "output-options": [
           {
+            "flush": true,
+            "maxsize": 10240000,
+            "maxver": 10,
             "output": "/var/log/kea/dhcp4-leases.log",
-            "maxver": 10
           }
         ]
       }
