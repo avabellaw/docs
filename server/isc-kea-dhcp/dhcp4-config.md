@@ -34,7 +34,7 @@
     },
     "cache-threshold": 0.25,
     "calculate-tee-times": true,
-    "valid-lifetime": 28800,
+    "valid-lifetime": 43200,
     "host-reservation-identifiers": [ "hw-address", "client-id" ],
     "option-data": [
       {
