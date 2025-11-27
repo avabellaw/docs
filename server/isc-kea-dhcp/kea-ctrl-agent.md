@@ -13,6 +13,28 @@ curl -u [USERNAME]:[PASSWORD] -X POST -H "Content-Type: application/json"      -
        }
      }'      http://localhost:8000/
 
+### Reclaim ips
+
+curl -u [user]:[pass] \
+     -H "Content-Type: application/json" \
+     -d '{ "command": "leases-reclaim", "service": [ "dhcp4" ], "arguments": { "remove": true } }' \
+  http://127.0.0.1:8000/
+
+}
+
+## kea shell
+
+### List all dhcp4 leases
+
+kea-shell --auth-user [user] --auth-password [pass] lease4-get-all --service dhcp4
+
+
+## Postgresql
+
+### View leases
+
+SELECT CAST(address AS text), CAST(hostname AS text), CAST(client_id AS text), expire FROM lease4;
+
 
 ## Ctrl agent config
 
