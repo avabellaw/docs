@@ -50,6 +50,15 @@
       { "library": "/usr/lib/x86_64-linux-gnu/kea/hooks/libdhcp_stat_cmds.so" },
       { "library": "/usr/lib/x86_64-linux-gnu/kea/hooks/libdhcp_lease_cmds.so" },
       { "library": "/usr/lib/x86_64-linux-gnu/kea/hooks/libdhcp_subnet_cmds.so" },
+      {"library": "libdhcp_ping_check.so",
+        "parameters": {
+            "enable-ping-check" : true,
+            "min-ping-requests" : 2,
+            "reply-timeout" : 500,
+            "ping-cltt-secs" : 60,
+            "ping-channel-threads" : 0
+        }
+      },
       {
         "library": "/usr/lib/x86_64-linux-gnu/kea/hooks/libdhcp_ha.so",
         "parameters": {
@@ -98,7 +107,7 @@
         ],
         "pools": [
           {
-            "pool": "192.168.1.3-192.168.1.220"
+            "pool": "192.168.1.26-192.168.1.220"
           }
         ]
       }
