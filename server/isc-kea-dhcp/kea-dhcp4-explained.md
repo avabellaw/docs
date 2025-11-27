@@ -1,3 +1,5 @@
+[Available hooks](https://kea.readthedocs.io/en/latest/arm/hooks.html#available-hook-libraries)
+
 ## Host reservation
 Another aspect of host reservations is the different types of identifiers. Kea currently supports four types of identifiers: hw-address, duid, client-id, and circuit-id. This is beneficial from a usability perspective; however, there is one drawback. For each incoming packet, Kea has to extract each identifier type and then query the database to see if there is a reservation by this particular identifier. If nothing is found, the next identifier is extracted and the next query is issued. This process continues until either a reservation is found or all identifier types have been checked. Over time, with an increasing number of supported identifier types, Kea would become slower and slower.
 
