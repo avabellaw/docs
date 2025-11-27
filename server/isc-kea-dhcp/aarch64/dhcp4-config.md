@@ -20,13 +20,14 @@
       "packet-queue-size": 28
     },
     "cache-threshold": 0.25,
-    "calculate-tee-times": true,
-    "valid-lifetime": 43200,
+    "valid-lifetime": 86400, # 24 hours
+    "calculate-tee-times": true, # Calculates renew (default 50% of valid-lifetime) and rebind (87.5%) 
     "host-reservation-identifiers": [ "hw-address", "client-id" ],
     "option-data": [
       {
         "name": "domain-name-servers",
-        "data": "192.168.1.25, 192.168.1.221, 1.1.1.1"
+        "data": "192.168.1.25, 192.168.1.221, 1.1.1.1",
+        "always-send": true
       }
     ],
     "hooks-libraries": [
@@ -37,6 +38,15 @@
       },
       {
         "library": "/usr/lib/aarch64-linux-gnu/kea/hooks/libdhcp_subnet_cmds.so"
+      },
+      {"library": "libdhcp_ping_check.so",
+        "parameters": {
+            "enable-ping-check" : true,
+            "min-ping-requests" : 2,
+            "reply-timeout" : 500,
+            "ping-cltt-secs" : 60,
+            "ping-channel-threads" : 0
+        }
       },
       {
         "library": "/usr/lib/aarch64-linux-gnu/kea/hooks/libdhcp_ha.so",
