@@ -122,7 +122,7 @@
             "flush": true,
             "maxsize": 10240000,
             "maxver": 10,
-            "output": "/var/log/kea/dhcp4.log",
+            "output": "/var/log/kea/dhcp4.log"
           }
         ]
       },
@@ -134,7 +134,7 @@
             "flush": true,
             "maxsize": 10240000,
             "maxver": 10,
-            "output": "/var/log/kea/dhcp4-dhcpsrv.log",
+            "output": "/var/log/kea/dhcp4-dhcpsrv.log"
           }
         ]
       },
@@ -147,7 +147,7 @@
             "flush": true,
             "maxsize": 10240000,
             "maxver": 10,
-            "output": "/var/log/kea/dhcp4-leases.log",
+            "output": "/var/log/kea/dhcp4-leases.log"
           }
         ]
       }
