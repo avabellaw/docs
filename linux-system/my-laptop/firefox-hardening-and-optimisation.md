@@ -6,6 +6,8 @@
 
 Make a backup of your current profile and then add user.js to the root of the profile. Can access from 'about:profiles'.
 
+**Betterfox fixes unable to edit Google Docs issue itself**
+
 ## Fix camera/audio not accessable
 
 in about:config, set:
