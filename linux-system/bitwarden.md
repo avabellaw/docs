@@ -6,11 +6,15 @@ Flatpak is unable to use biometrics and ssh agent
 
 ## SSH agent
 
-Add the following to /etc/environment in order to use bitwardens ssh agent system-wide.
+~~Add the following to /etc/environment in order to use bitwardens ssh agent system-wide.~~
+
+Add to /etc/profile prefixed with 'export'
 
 ```SSH_AUTH_SOCK=/home/<user>/snap/bitwarden/current/.bitwarden-ssh-agent.sock```
 
 Private keys in bitwarden, public in home dir .ssh.
+
+
 
 ### Test ssh agent
 
