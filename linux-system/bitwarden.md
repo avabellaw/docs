@@ -10,19 +10,33 @@ snap has continous auto-updates. Unfortunately, fingerprint doesn't work for bro
 
 **You will need to add a fix to stop SSH_AUTH_SOCK from being override.**
 
-[Explained on StackOverflow](https://unix.stackexchange.com/questions/315004/where-does-gnome-keyring-set-ssh-auth-sock)
+Just edit this file for fedora. ~~It will disable gcr (gnome keyring) from overriding the SSH_AUTH_SOCK var~~ supposed to but have to do the below as well:
 
-In /etc/profile.d/bitwarden-ssh, add the following:
+nano ~/.ssh/config
 
-```
-export GSM_SKIP_SSH_AGENT_WORKAROUND=1
+```                                                           
+Host *
+    IdentityAgent /home/ava/snap/bitwarden/current/.bitwarden-ssh-agent.sock
 
-export SSH_AUTH_SOCK=/home/<user>/snap/bitwarden/current/.bitwarden-ssh-agent.sock
 ```
 
 Private keys in bitwarden, public in home dir .ssh.
 
-[Changing ssh agent to point to Bitwarden, found on Bitwarden website](https://bitwarden.com/help/ssh-agent/#tab-linux-6VN1DmoAVFvm7ZWD95curS)
+For reference [bitwarden website: changing ssh agent to point to Bitwarden](https://bitwarden.com/help/ssh-agent/#tab-linux-6VN1DmoAVFvm7ZWD95curS)
+
+### Disable gnome ssh agent to prevent overriding 
+
+#### System-wide
+
+```
+echo $'X-GNOME-Autostart-enabled=false\nHidden=true' | sudo tee -a /etc/xdg/autostart/gnome-keyring-ssh.desktop
+```
+
+#### User specific
+
+```
+echo $'X-GNOME-Autostart-enabled=false\nHidden=true' >> ~/.config/autostart/gnome-keyring-ssh.desktop
+```
 
 ### Test ssh agent
 
