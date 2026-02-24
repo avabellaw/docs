@@ -26,6 +26,8 @@ For reference [bitwarden website: changing ssh agent to point to Bitwarden](http
 
 ### Disable gnome ssh agent to prevent overriding 
 
+**Edit the file after running one of the below commands and ensure ```Exec=/usr/bin/gnome-keyring-daemon --start --components=ssh``` is after the new values**
+
 #### System-wide
 
 ```
