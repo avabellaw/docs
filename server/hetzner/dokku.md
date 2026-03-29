@@ -39,3 +39,24 @@ dokku postgres:create postgres
 dokku postgres:link postgres app
 ```
 
+## Specify sub directories
+
+1. If this is the only buildpack, then add the config var ```BUILDPACK_URL``` to the dokku app and then set it to ```https://github.com/heroku/heroku-buildpack-python.git```
+
+    Add '.buildpacks' at root of repo to add multiple buildpacks. Include:
+    ```https://github.com/heroku/heroku-buildpack-python.git```
+
+
+2. Set the config var ```PROJECT_PATH``` to the name of the folder you want to specify.
+
+## Enable ssl
+
+zip the .crt and .key files for ssl into a tar file and add to app
+
+``` dokku certs:add [appname] < ./dokku-cert-key.tar```
+
+## Add from image 
+
+EXAMPLE_APP_NAME=gotify
+
+```dokku git:from-image gotify gotify/server:latest```
