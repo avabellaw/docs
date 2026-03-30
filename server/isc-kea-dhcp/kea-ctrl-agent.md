@@ -38,10 +38,13 @@ SELECT CAST(address AS text), CAST(hostname AS text), CAST(client_id AS text), e
 
 ## Ctrl agent config
 
+"password-file" is a file containing a password, not a key file
+
+
 ```
 {
     "Control-agent": {
-        "http-host": "127.0.0.1",
+        "http-host": [HOST],
         "http-port": 8000,
         "http-headers": [
             {
