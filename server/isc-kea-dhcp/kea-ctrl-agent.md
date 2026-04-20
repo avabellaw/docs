@@ -4,9 +4,13 @@
 
 ## Control from command line
 
+"Single quotes (' ') operate similarly to double quotes, but do not permit referencing variables, since the special meaning of $ is turned off. Within single quotes, every special character except ' gets interpreted literally.
+
+Encapsulating "!" within double quotes gives an error when used from the command line. This is interpreted as a history command. Within a script, though, this problem does not occur, since the Bash history mechanism is disabled then."
+
 ### Release an ip 
 
-curl -u [USERNAME]:[PASSWORD] -X POST -H "Content-Type: application/json"      -d '{
+curl -u '[USERNAME]:[PASSWORD]' -X POST -H "Content-Type: application/json"      -d '{
        "command": "lease4-del",
        "service": ["dhcp4"],"arguments": {
          "ip-address": "192.168.1.103"
@@ -15,7 +19,7 @@ curl -u [USERNAME]:[PASSWORD] -X POST -H "Content-Type: application/json"      -
 
 ### Reclaim ips
 
-curl -u [user]:[pass] \
+curl -u '[user]:[pass]' \
      -H "Content-Type: application/json" \
      -d '{ "command": "leases-reclaim", "service": [ "dhcp4" ], "arguments": { "remove": true } }' \
   http://127.0.0.1:8000/
