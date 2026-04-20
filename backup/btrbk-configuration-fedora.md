@@ -24,15 +24,21 @@ snapshot_create onchange
 target_preserve_min    3h
 target_preserve        2d 1w 0m 0y
 
+# Archive retention policy (external backups)
+archive_preserve_min	1d
+archive_preserve	6d 3w 2m
+
 volume /mnt/btrfsroot
     # root
 	subvolume @fedora
 		snapshot_preserve	3d 1w 1m 0y
-		target_preserve		2d 1w 0m 0y
+		target_preserve		0d 0w 0m 0y
+		target_preserve_min	latest
 		target send-receive /media/ava/data-backup/snapshots/fedora-root
 
 	# home
 	subvolume @fedora-home
+		snapshot_preserve	2h 2d 1w 0m 0y
 		target_preserve		3h 2d 0w 0m 0y
 		target send-receive /media/ava/data-backup/snapshots/fedora-home
 
@@ -43,14 +49,13 @@ volume /mnt/btrfsroot
 	# steam
 	subvolume @steam
 
+	# unbacked
+	subvolume @unbacked
+
 	#root
 	subvolume @
 	    snapshot_preserve       0d 0w 0m 0y
-	    target_preserve         0h 0d 0w 0m 0y
 		snapshot_preserve_min latest
-	    target_preserve_min latest
-
-		target send-receive /media/ava/data-backup/snapshots/root
 
 	# home
 	subvolume @home
