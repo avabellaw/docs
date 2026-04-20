@@ -27,3 +27,11 @@ try lazy umount
 find process using mount 
 
 ```lsof +f -- [mountpoint]``` (-- just terminates lsof looking for parameters)
+
+## No data copy-on-write (CoW)
+
+Must be done on the directory level to be inherited by it's children.
+
+This can be done with ```chattr +C /mnt/subvol```.
+
+Only new files affected ofcourse.
