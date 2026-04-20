@@ -50,5 +50,57 @@ package_archive /var/cache/dnf tmpfs defaults,size=1G 0 0
 
 ## Compress existing data btrfs
 
-```btrfs filesystem defragment -c```
+**Dont do this on volumes containing snapshots with shared data** - double check this 
 
+```btrfs filesystem defragment -c``` 
+
+## Snapshots
+
+Use btrfs assistant to setup snapshots on boot
+
+dnf-plugin-snapper (python3-dnf-plugin-snapper) will create snapshots before dnf update
+
+### grub-btrfs - view snapshots in grub menu
+
+grub requires older encryption pdkdf2. Fedora will soon have GRUB 2.14 where this won't be an issue. otherwise, luks can't be encrypted with argon2id and use pdkdf2.
+
+[The following steps are from sysguides.com](https://sysguides.com/install-fedora-42-with-snapshot-and-rollback-support)
+
+" git clone https://github.com/Antynea/grub-btrfs
+$ cd grub-btrfs
+
+Apply Fedora-specific changes to the configuration file: Copy the entire block from sed to config, paste it into your terminal, and press [Enter] to update the settings.
+
+$ sed -i.bkp \
+  -e '/^#GRUB_BTRFS_SNAPSHOT_KERNEL_PARAMETERS=/a \
+GRUB_BTRFS_SNAPSHOT_KERNEL_PARAMETERS="rd.live.overlay.overlayfs=1"' \
+  -e '/^#GRUB_BTRFS_GRUB_DIRNAME=/a \
+GRUB_BTRFS_GRUB_DIRNAME="/boot/grub2"' \
+  -e '/^#GRUB_BTRFS_MKCONFIG=/a \
+GRUB_BTRFS_MKCONFIG=/usr/bin/grub2-mkconfig' \
+  -e '/^#GRUB_BTRFS_SCRIPT_CHECK=/a \
+GRUB_BTRFS_SCRIPT_CHECK=grub2-script-check' \
+  config
+
+Install it:
+
+$ sudo make install
+
+You might see a "No snapshots found" message initially. This is expected since no snapshots exist yet.
+
+Enable the service:
+
+$ sudo systemctl enable --now grub-btrfsd.service
+
+Your grub-btrfs setup is now finished. You can safely remove the cloned grub-btrfs directory.
+
+$ cd ..
+$ rm -rfv grub-btrfs"
+
+#### Install required packages
+
+```sudo dnf install inotify-tools``` - Checks for new snapshots
+
+### Change grub location such as partition or folder dir
+
+```sudo nano /boot/efi/EFI/fedora/grub.cfg```
