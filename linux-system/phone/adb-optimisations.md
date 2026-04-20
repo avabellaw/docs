@@ -18,13 +18,13 @@ _**DEVICE_NAME** This will just set device name, default device name and synced_
 ```bash
 DEVICE_NAME=EXAMPLE
 
-SETTINGS=("global animator_duration_scale 0.2" 
+declare -a SETTINGS=("global animator_duration_scale 0.2" 
 "global transition_animation_scale 0.2"
 "global window_animation_scale 0.2"
 "global sem_low_heat_mode 1"
-"global default_device_name YOURNAMEHERE"
-"global device_name YOURNAMEHERE"
-"global synced_account_name YOURNAMEHERE"
+"global default_device_name $DEVICE_NAME"
+"global device_name $DEVICE_NAME"
+"global synced_account_name $DEVICE_NAME"
 "global enable_back_animation 1"
 "global online_manual_url 0"
 "global google_core_control 0"
@@ -32,14 +32,14 @@ SETTINGS=("global animator_duration_scale 0.2"
 "secure accessibility_captioning_font_scale 0.7"
 "secure odi_captions_enabled 0"
 "secure odi_captions_volume_ui_enabled 0"
-"secure bluetooth_name YOURNAMEHERE"
+"secure bluetooth_name $DEVICE_NAME"
 "secure brightness_on_top 1"
 "system Flashlight_brightness_level 1001"
 "system super_fast_charging 1"
 "system system_locales en-GB"
 )
 
-for setting in SETTINGS; do adb shell settings put $(setting); done
+for setting in ${SETTINGS[@]}; do adb shell settings put $setting; done
 
 ```
 
