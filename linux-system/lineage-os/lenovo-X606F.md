@@ -69,3 +69,95 @@ fastboot reboot
     * _fastboot --disable-verity --disable-verification flash vbmeta vbmeta.img_
     * Install magisk
 
+## Fix high power drain
+
+Lineage gets stuck looking for a radio that isn't there to enable phone calls and sms messaging. It also uses wake locks for ambien display etc.
+
+### Setup not complete
+
+This is due to trying to search for phone services that dont exist in my case
+
+#### Tell the tablet it's finished
+
+```
+adb shell settings put global device_provisioned 1
+adb shell settings put secure user_setup_complete 1
+adb shell settings put global setup_wizard_has_run 1
+```
+
+#### Disable it
+
+_You can check your packages (incase you also have google) using: ```adb shell pm list packages | grep setupwizard```_
+
+```
+adb shell pm disable-user --user 0 org.lineageos.setupwizard
+```
+
+### View wakelocks
+
+```
+adb shell dumpsys power | grep -i wakelock
+
+adb shell dumpsys power | grep -A 20 "Wake Locks:"
+
+adb shell dumpsys power | grep mHoldingWakeLockSuspendBlocker
+```
+
+### Phone services
+
+```
+adb shell pm disable-user --user 0 com.android.phone
+adb shell pm disable-user --user 0 com.android.providers.telephony
+adb shell pm disable-user --user 0 com.android.server.telecom
+adb shell pm disable-user --user 0 com.android.cellbroadcastreceiver
+adb shell pm disable-user --user 0 com.android.cellbroadcastservice
+```
+
+#### Keeps going away and coming back
+```
+Wake Locks: size=2
+  PARTIAL_WAKE_LOCK              'GsmInboundSmsHandler' ACQ=-350ms (uid=1001 pid=18547)
+  PARTIAL_WAKE_LOCK              'CdmaInboundSmsHandler' ACQ=-340ms (uid=1001 pid=18547)
+```
+
+run ```adb shell``` and ```su``` for root.
+
+
+Tell it there is no redio interface: ```resetprop ro.radio.noril yes```
+
+and not voice or sms capable:
+
+```
+resetprop ro.telephony.voice.capable false
+resetprop ro.telephony.sms.capable false
+```
+
+Might atleast remove agressive searching or hint to not look and also no sim :
+```
+resetprop ro.telephony.default_network 10
+resetprop persist.radio.multisim.config ""
+```
+
+and soft reboot ```stop; start```
+
+
+As root, hide com.android.phone so that the system can't keep trying to restart:
+
+```
+pm hide com.android.phone
+pm hide com.android.providers.telephony
+pm hide com.android.server.telecom
+```
+
+if ```adb shell ps -u 1001``` gives an "S" then it is waiting in ram and not using a wake lock
+
+```
+USER           PID  PPID        VSZ    RSS WCHAN            ADDR S NAME                       
+radio         2420  1382   14810304 106808 0                   0 S com.android.phone
+```
+
+#### SMS
+
+```
+adb shell pm disable-user --user 0 com.android.messaging
+```
