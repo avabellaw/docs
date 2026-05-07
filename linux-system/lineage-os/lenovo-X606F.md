@@ -68,6 +68,23 @@ fastboot reboot
     * reflash vbmeta for some reason (seems like magisk requires this sometimes?)
     * _fastboot --disable-verity --disable-verification flash vbmeta vbmeta.img_
     * Install magisk
+  
+## Full magisk root
+
+gsi comes with built in root but this is how to get magisk root.
+
+### get boot image in adb shell as root (su)
+
+1. Find where your boot partition is and make a copy to sdcard
+```
+ls -l /dev/block/by-name/boot
+
+dd if=/dev/block/mmcblk0pXX of=/sdcard/boot.img
+```
+
+2. patch the image with magisk, it will most likely put img in sdcard/Download.
+
+3. adb pull that image onto your computer and flash to boot partition using above guide.
 
 ## Fix high power drain
 
@@ -126,6 +143,12 @@ run ```adb shell``` and ```su``` for root.
 Tell it there is no redio interface: ```resetprop ro.radio.noril yes```
 
 and not voice or sms capable:
+
+**I've realised you actually need full magisk root in order to preserve resetprop commands!!!**
+
+**Every "resetprop" on ro. property sets it live. to persist do the same but using setprop with persist. instead of ro.**
+ 
+**In order to get these set in time, you will need to create a script that magisk will run in /data/adb/service.d/**
 
 ```
 resetprop ro.telephony.voice.capable false
