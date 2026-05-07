@@ -2,10 +2,12 @@
 
 [follow this guide](https://xdaforums.com/t/guide-tb-x606f-a-lenovo-m10-plus-fhd-lineage-os-21-gsi-unofficial-android-14.4697538/)
 
+Lineage 19 (android 12) is most compatable with the drivers on this device.
+
 Get vbmeta from C:\ProgramData\RSA\Download\RomFiles after backing up device using Software Fix (Rescue and Smart Assistant) _AKA LMSA_.
 
 
-Manually wipe data partition. If bootlooping then something has remained.
+Manually wipe data partition, both cache partitions and system. If bootlooping, then something has remained.
 
 Perhaps next time use a ROM with micoG.
 
@@ -35,7 +37,7 @@ fastboot --disable-verity --disable-verification flash vbmeta vbmeta.img
 
 ```
 fastboot devices
-fastboot flash system lineage-21.0-xxxxxxxx-UNOFFICIAL-arm64_bgN-signed.img
+fastboot flash system lineage-xx.x-xxxxxxxx-UNOFFICIAL-arm64_bvN-signed.img
 fastboot reboot
 ```
 
@@ -56,7 +58,7 @@ fastboot reboot
     23 hangs at lineage logo
 
 * latest lineage 21 by andyyan. I think it's capped by the firmware, reading the last kernel message somewhat confirms this. "Attempted to kill init!" (```adb shell cat /proc/last_kmsg```)
-  * lineage 21 20250621 bvS works well
+  * ~lineage 21 20250621 bvS works well~ Lineage 21 booted but had driver issues and couldn't go into deep sleep. Lineage 19 (latest gsi version -- android 12) has much better comptability with this device as the drivers supplied by Lenovo are android 11 or 12.
 
 * Changing GSIs reliably
   * Format data + factory reset + advanced remove cache, dcache and system (partly redundany but ensures it works).
@@ -86,7 +88,33 @@ dd if=/dev/block/mmcblk0pXX of=/sdcard/boot.img
 
 3. adb pull that image onto your computer and flash to boot partition using above guide.
 
+## Improve battery life
+
+### Settings
+
+* Disable the following:
+  * System > gestures > Life to wake
+  * Location > location services > wifi scanning & bluetooth scanning
+* phh treble settings
+  * Set dynamic fps
+  * Remove telephony system (will remove any wakelocks/glitches)
+* Developer options
+  * Disable always on mobile data
+
+### Apps
+
+* Install deepdoze Magisk module
+* Naptime by francisco _made a big difference_ (use uptodown if can't find on app store due to aurora).
+  * Set to agressive and disable wifi and location etc when off 
+
+
 ## Fix high power drain
+
+**Couldn't get the tablet to deep sleep so an older android version is required.
+
+I decided to use lineage 19 instead as it uses android 12 and therefore better supports my tablet's drivers.
+
+Some of the steps below relate to trying to get lineage 21 to work**
 
 Lineage gets stuck looking for a radio that isn't there to enable phone calls and sms messaging. It also uses wake locks for ambien display etc.
 
