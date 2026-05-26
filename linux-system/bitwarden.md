@@ -26,23 +26,34 @@ For reference [bitwarden website: changing ssh agent to point to Bitwarden](http
 
 ### Disable gnome ssh agent to prevent overriding 
 
-**Edit the file after running one of the below commands and ensure ```Exec=/usr/bin/gnome-keyring-daemon --start --components=ssh``` is after the new values**
+1. Open config file
+   For **system-wide** edit: ```/etc/xdg/autostart/gnome-keyring-ssh.desktop```        
+   For **User specific** edit: ```~/.config/autostart/gnome-keyring-ssh.desktop```
+2. Comment out ```Exec=/usr/bin/gnome-keyring-daemon --start --components=ssh```. This alone should work. If you dont want to do this, follow the rest of the steps but they haven't worked for me (Fedora).
+3. Add to the config file:
+    ```
+    X-GNOME-Autostart-enabled=false
+    Hidden=true
+    ```
+    <details>
+    <summary>Script to add for system</details>
+    ```
+    echo $'X-GNOME-Autostart-enabled=false\nHidden=true' | sudo tee -a /etc/xdg/autostart/gnome-keyring-ssh.desktop
+    ```
+    </details>
 
-#### System-wide
+    <details>
+    <summary>Script to add for user</details>
+    ```
+    echo $'X-GNOME-Autostart-enabled=false\nHidden=true' >> ~/.config/autostart/gnome-keyring-ssh.desktop
+    ```
+    </details>
 
-```
-echo $'X-GNOME-Autostart-enabled=false\nHidden=true' | sudo tee -a /etc/xdg/autostart/gnome-keyring-ssh.desktop
-```
-
-#### User specific
-
-```
-echo $'X-GNOME-Autostart-enabled=false\nHidden=true' >> ~/.config/autostart/gnome-keyring-ssh.desktop
-```
+4. Ensure that ```Exec=/usr/bin/gnome-keyring-daemon --start --components=ssh``` is on the last line. 
 
 ### Test ssh agent
 
-_The following will list available keys_
+_The following will list available keys from the gnome keyring but not bitwarden_
 
 ```bash
 ssh-add -l
