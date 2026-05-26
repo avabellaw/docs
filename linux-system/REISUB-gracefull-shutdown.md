@@ -33,6 +33,11 @@ R E I S U B
 
 "The magic SysRq key is enabled when ```cat /proc/sys/kernel/sysrq``` shows 1."
 
+**0:** Disables all SysRq functions.
+**1:** Enables all SysRq functions.
+**16:** Enables the sync command only.
+**128:** Allows system reboot/poweroff.
+
 "```sudo sysctl kernel.sysrq=1``` for the current session"
 
 Make permanent:
