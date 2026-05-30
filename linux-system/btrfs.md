@@ -1,3 +1,11 @@
+## Resize
+
+Can set the new size or reduce/extend by:
+
+```sudo btrfs filesystem resize [ +-]400G(GiB) /```
+
+```sudo btrfs filesystem max /```
+
 ## quotas and qgroups
 
 Enable Quotas: sudo btrfs quota enable <path>
@@ -17,6 +25,18 @@ Quotas are managed by "qgroups" (quota groups), which form a hierarchy.
 
 
 btrfs filesystem du -s <path>. 
+
+### Trigger rescan (full accounting only / not simple quota)
+
+Manually trigger rescan to account for existing data. ```btrfs quota rescan /mnt```
+* **-s** View progress of rescan
+* **-w** Wait until finished
+
+### Simple quotas 
+
+1. ```btrfs quota disable /mnt```
+2. ```btrfs quota enable --simple /mnt```
+3. Check using simple quota not full accounting:```btrfs inspect-internal dump-super /dev/sdbX | grep SIMPLE_QUOTA```
 
 ## Wont umount
 
