@@ -15,3 +15,14 @@ PGPASSWORD='' pg_dump -h **HOST NAME** -p 5432 -U **DB USRENAME** -d **DB NAME**
   -d avien_db \
   -f supabase_dump.sql
 ```
+
+## Docker
+
+Enter container ```docker exec -it CONTAINER bash``` 
+Run the above restore command
+
+OR
+
+Bind container to host port 
+
+```PGPASSWORD= psql -h localhost -p HOST_PORT -U postgres -f ./*.sql```
