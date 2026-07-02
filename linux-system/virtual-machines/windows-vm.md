@@ -46,6 +46,18 @@ Now using raw disk on LVM-Thin for performance gains while maintaining ease of u
 * Add rotation_rate=1 to <target/> parameters on SCSI disk.
 * [Install spice guest tools on windows](https://www.spice-space.org/download.html)
 
+```lscpu -e``` see performance / energy efficient cores
+
+for CPU pinning check out: https://leduccc.medium.com/improving-the-performance-of-a-windows-10-guest-on-qemu-a5b3f54d9cf5
+
+Best to not mix P and E threads. Best would be to use cpu 3 and 4 performance threads, however, as I am using power bi that uses multi-threading I will use all available E cores. 
+
+Since it's best to not mix performance and engergy cores, I will assign the iothread 2 performance cores for symeltaneous read write processing.
+
+Need to update iothread from 1 to <iothreads>2<iothreads>
+
+Need to add 2 queues to disk ```<driver queues="2"/>``` within virtio scsi controller config so it knows to use them.
+
 ### Disabling zeroing on vm-pool
 
 Currently I only have windows in said pool so disabling this will improve performance and reduce wear.
