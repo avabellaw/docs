@@ -36,6 +36,33 @@ I liked the flexibility and learning oppurtunity from using lvm, however, I've l
 
 Now using raw disk on LVM-Thin for performance gains while maintaining ease of use. (Helps that it gives me a reason to keep LVM). [See considerations](../virtual-machine-considerations.md)
 
+## Troubleshooting
+
+### Disks
+
+Trim may not work if disk granularity is mismatching. Needs to match the minimum blocksize for lvmthin to accept.
+
+Either add ```<blockio discard_granularity="65536"/>``` to disk or add the following to domain xml in virt manager to set the disk granularity to the blocksize of the lvm thin (add an alias to target disk _has to have "ua-" prepended_):
+```xml
+<qemu:override>
+    <qemu:device alias="ua-windows-disk">
+      <qemu:frontend>
+        <qemu:property name="discard_granularity" type="unsigned" value="BLOCKSIZE"/>
+      </qemu:frontend>
+    </qemu:device>
+  </qemu:override>
+```
+
+Add xml schema to domain args: ```xmlns:qemu="http://libvirt.org/schemas/domain/qemu/1.0"```
+
+
+
+```fsutil fsinfo sectorinfo C:``` info/trim info
+```fsutil behavior set DisableDeleteNotify 1```
+```fsutil behavior set DisableDeleteNotify 0```
+```winsat disk -drive c```
+
+
 ## My laptop
 
 ### CPUS
